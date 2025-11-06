@@ -40,7 +40,7 @@ def estimate_cdr(image):
 
     try:
         # Cup detection
-        bright_thresh = np.percentile(gray[disc_mask], 55)
+        bright_thresh = np.percentile(gray[disc_mask], 80)
         cup_mask = gray > bright_thresh
         cup_mask = morphology.remove_small_objects(cup_mask, 100)
     except Exception:
@@ -164,4 +164,5 @@ if uploaded_files:
 
 else:
     st.info("👆 Upload one or more fundus images to get started.")
+
 
