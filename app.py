@@ -60,9 +60,9 @@ def estimate_cdr(image):
     cdr = min(cup_area / disc_area, 1.0)
 
     # Severity grading
-    if cdr < 0.3:
+    if cdr < 0.20:
         severity = "Low"
-    elif cdr < 0.6:
+    elif cdr < 0.5:
         severity = "Mid"
     else:
         severity = "High"
@@ -164,5 +164,6 @@ if uploaded_files:
 
 else:
     st.info("👆 Upload one or more fundus images to get started.")
+
 
 
