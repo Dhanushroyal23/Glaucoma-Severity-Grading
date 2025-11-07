@@ -59,15 +59,27 @@ def estimate_cdr(image):
     cup_area = np.sum(cup_mask)
     cdr = min(cup_area / disc_area, 1.0)
 
-    # Severity grading
-    if cdr < 0.20:
-        severity = "Low"
+    
+    # --- Severity grading ---
+    if cdr < 0.3:
+        severity = "Normal Eye"
     elif cdr < 0.5:
-        severity = "Mid"
+        severity = "Mild Glaucoma"
+    elif cdr < 0.7:
+        severity = "Moderate Glaucoma"
     else:
-        severity = "High"
+        severity = "Severe Glaucoma"
 
-    return cdr, severity, None
+
+    if severity == "Normal Eye":
+        st.success(f"🟢 Result: {severity} (CDR: {cdr:.2f})")
+    elif severity == "Mild Glaucoma":
+        st.warning(f"🟡 Result: {severity} (CDR: {cdr:.2f})")
+    elif severity == "Moderate Glaucoma":
+        st.error(f"🟠 Result: {severity} (CDR: {cdr:.2f})")
+    else:
+        st.error(f"🔴 Result: {severity} (CDR: {cdr:.2f})")
+
 
 # ----------------------------
 # 🎨 Sidebar UI
@@ -164,6 +176,7 @@ if uploaded_files:
 
 else:
     st.info("👆 Upload one or more fundus images to get started.")
+
 
 
 
